@@ -44,14 +44,14 @@ class _PageBuilderState extends State<PageBuilder> {
     return Scaffold(
       backgroundColor: AppColors.white,
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+        padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
         child: ClipRRect(
           borderRadius: const BorderRadius.all(
             Radius.circular(45),
           ),
           child: BottomAppBar(
             color: Colors.black,
-            height: 75,
+            height: 70,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
