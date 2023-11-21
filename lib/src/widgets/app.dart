@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:painteres_clone/src/pages/home_page.dart';
 
 import 'navigation_bar.dart';
 
