@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:painteres_clone/src/common/constants/app_colors.dart';
+
 import 'package:painteres_clone/src/common/validation/validation.dart';
 
 import '../service/auth_service.dart';
@@ -98,7 +99,7 @@ class _SignInState extends State<SignIn> {
                 padding: const EdgeInsets.all(12),
                 child: DecoratedBox(
                   decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(40)),
+                  BoxDecoration(borderRadius: BorderRadius.circular(40)),
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey1.currentState!.validate()) {
@@ -106,11 +107,11 @@ class _SignInState extends State<SignIn> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(400, 50),
-                      backgroundColor: AppColors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
-                      ),
+                        fixedSize: const Size(400, 50),
+                        backgroundColor: AppColors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
                     ),
                     child: const Text(
                       "SignIn",
