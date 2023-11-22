@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:painteres_clone/src/pages/auth_gete.dart';
+import 'package:painteres_clone/src/pages/switch_page.dart';
 
 import 'package:provider/provider.dart';
 
@@ -29,7 +30,7 @@ class MyApplication extends StatelessWidget {
             Locale("en"),
             Locale("uz"),
           ],
-          home: const AuthGate()
+          home: SwitchPage(),
         );
       },
     );
