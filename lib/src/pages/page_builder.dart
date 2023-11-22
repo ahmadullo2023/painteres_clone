@@ -3,9 +3,9 @@ import 'package:painteres_clone/src/common/constants/app_icons.dart';
 import 'package:painteres_clone/src/pages/favorite_page.dart';
 import 'package:painteres_clone/src/pages/home_page.dart';
 import 'package:painteres_clone/src/pages/profile_page.dart';
-
 import '../common/constants/app_colors.dart';
 import '../view/custom_item.dart';
+
 
 class PageBuilder extends StatefulWidget {
   const PageBuilder({super.key});

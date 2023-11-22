@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:painteres_clone/src/common/constants/app_colors.dart';
+import 'package:painteres_clone/src/pages/page_builder.dart';
 import 'package:painteres_clone/src/pages/sign_up_page.dart';
 
 class SignIn extends StatefulWidget {
@@ -97,7 +97,7 @@ class _SignInState extends State<SignIn> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext) => SignIn()));
+                              builder: (BuildContext) => const PageBuilder()));
                     },
                     style: ElevatedButton.styleFrom(
                       fixedSize: Size(400, 50),
@@ -116,7 +116,7 @@ class _SignInState extends State<SignIn> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext) => SignUp()));
+                        builder: (BuildContext) => const SignUp()));
               },
               child: const Text(
                 "SignUp",

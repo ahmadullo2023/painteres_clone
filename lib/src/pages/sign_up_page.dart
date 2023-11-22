@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:painteres_clone/src/common/constants/app_colors.dart';
+import 'package:painteres_clone/src/pages/page_builder.dart';
 import 'package:painteres_clone/src/pages/sign_in_page.dart';
 
 class SignUp extends StatefulWidget {
@@ -11,7 +11,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final _formKey1 = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
   TextEditingController email = TextEditingController();
   TextEditingController pass = TextEditingController();
 
@@ -20,7 +20,7 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Form(
-        key: _formKey1,
+        key: _formKey2,
         child: Column(
           children: [
             Container(
@@ -114,7 +114,7 @@ class _SignUpState extends State<SignUp> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext) => SignUp()));
+                              builder: (BuildContext) => const PageBuilder()));
                     },
                     style: ElevatedButton.styleFrom(
                       fixedSize: Size(400, 50),
