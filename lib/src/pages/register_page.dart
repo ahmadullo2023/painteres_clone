@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:painteres_clone/src/pages/sign_in_page.dart';
+import 'package:painteres_clone/src/pages/sign_up_page.dart';
 
 import '../common/constants/app_colors.dart';
 
@@ -15,56 +16,59 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.black,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: Stack(
         children: [
-          const Spacer(),
-          SizedBox(height: 50),
-          Center(
+          Align(
+            alignment: Alignment.center,
             child: Image.asset(
               "assets/icons/logo.png",
               height: 170,
             ),
           ),
-          const Spacer(),
-          Padding(
-              padding: EdgeInsets.all(12),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  // boxShadow: const [
-                  //   BoxShadow(color: Colors.grey, blurRadius: 10,offset: Offset(4, 5)),
-                  // ]
-                ),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (BuildContext) => SignIn()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: Size(400, 50),
-                    backgroundColor: AppColors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40),
+          Align(
+            alignment: Alignment(0, .8),
+            child: Padding(
+                padding: EdgeInsets.all(12),
+                child: DecoratedBox(
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(40)),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext) => SignIn()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(400, 50),
+                      backgroundColor: AppColors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                    ),
+                    child: const Text(
+                      "SignIn",
+                      style: TextStyle(color: AppColors.black),
                     ),
                   ),
-                  child: Text(
-                    "SignIn",
-                    style: TextStyle(color: AppColors.black),
-                  ),
+                )),
+          ),
+          Align(
+            alignment: Alignment(0, .95),
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (BuildContext) => SignUp()));
+              },
+              child: const Text(
+                "SignUp",
+                style: TextStyle(
+                  color: AppColors.blue,
+                  decoration: TextDecoration.underline,
                 ),
-              )),
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              "SignUp",
-              style: TextStyle(
-                color: AppColors.blue,
-                decoration: TextDecoration.underline,
               ),
             ),
           ),
-          SizedBox(height: 25)
         ],
       ),
     );
