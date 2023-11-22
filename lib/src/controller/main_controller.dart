@@ -7,4 +7,11 @@ class MainController extends ChangeNotifier {
     locale = newLocale;
     notifyListeners();
   }
+
+  bool switchButton = true;
+
+  void switchPage() {
+    switchButton =! switchButton;
+    notifyListeners();
+  }
 }

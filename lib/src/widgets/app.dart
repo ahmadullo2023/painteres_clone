@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:painteres_clone/src/pages/page_builder.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:painteres_clone/src/pages/switch_page.dart';
+import 'package:provider/provider.dart';
 
-import '../pages/register_page.dart';
+import '../controller/main_controller.dart';
 
 
 
@@ -10,9 +12,25 @@ class MyApplication extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: RegisterPage(),
+    return ChangeNotifierProvider(
+      create: (context) => MainController(),
+      builder: (context, child) {
+        final locale = Provider.of<MainController>(context).locale;
+        return MaterialApp(
+          locale: locale,
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale("en"),
+            Locale("uz"),
+          ],
+          home: const SwitchPage(),
+        );
+      },
     );
   }
 }

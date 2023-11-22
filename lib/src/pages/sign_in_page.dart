@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:painteres_clone/src/common/constants/app_colors.dart';
 import 'package:painteres_clone/src/pages/page_builder.dart';
-import 'package:painteres_clone/src/pages/sign_up_page.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
+  const SignIn({Key? key, this.onTap}) : super(key: key);
+  final void Function()? onTap;
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -26,17 +26,17 @@ class _SignInState extends State<SignIn> {
             Container(
               width: double.infinity,
               height: 200,
-              child: Center(
-                child: Image.asset(
-                  "assets/icons/logo.png",
-                  height: 100,
-                ),
-              ),
               decoration: const BoxDecoration(
                 color: Colors.black,
                 borderRadius: BorderRadius.only(
                   bottomRight: Radius.elliptical(200, 50),
                   bottomLeft: Radius.elliptical(200, 50),
+                ),
+              ),
+              child: Center(
+                child: Image.asset(
+                  "assets/icons/logo.png",
+                  height: 100,
                 ),
               ),
             ),
@@ -88,36 +88,34 @@ class _SignInState extends State<SignIn> {
             ),
             const Spacer(),
             Padding(
-                padding: EdgeInsets.all(12),
-                child: DecoratedBox(
-                  decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(40)),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext) => const PageBuilder()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(400, 50),
-                      backgroundColor: AppColors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
+              padding: const EdgeInsets.all(12),
+              child: DecoratedBox(
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(40)),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PageBuilder(),
                       ),
-                    ),
-                    child: const Text(
-                      "SignIn",
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(400, 50),
+                    backgroundColor: AppColors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
                     ),
                   ),
-                )),
+                  child: const Text(
+                    "SignIn",
+                  ),
+                ),
+              ),
+            ),
             TextButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext) => const SignUp()));
-              },
+              onPressed: widget.onTap,
               child: const Text(
                 "SignUp",
                 style: TextStyle(
