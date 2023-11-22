@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:painteres_clone/src/common/constants/app_colors.dart';
+import 'package:painteres_clone/src/common/validation/validation.dart';
 import 'package:painteres_clone/src/pages/page_builder.dart';
 import 'package:painteres_clone/src/pages/sign_up_page.dart';
+import 'package:provider/provider.dart';
+
+import '../service/auth_service.dart';
+
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -13,7 +18,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final _formKey1 = GlobalKey<FormState>();
   TextEditingController email = TextEditingController();
-  TextEditingController pass = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +56,8 @@ class _SignInState extends State<SignIn> {
             Padding(
               padding: const EdgeInsets.all(12),
               child: TextFormField(
+                controller: email,
+                validator: (value) => Validation().emailIn(value),
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
                     Icons.email_outlined,
@@ -68,6 +75,8 @@ class _SignInState extends State<SignIn> {
             Padding(
               padding: const EdgeInsets.all(12),
               child: TextFormField(
+                controller: password,
+                validator: (value) => Validation().passwordIn(value),
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
                     Icons.lock,
@@ -94,10 +103,14 @@ class _SignInState extends State<SignIn> {
                   BoxDecoration(borderRadius: BorderRadius.circular(40)),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext) => const PageBuilder()));
+                      if (_formKey1.currentState!.validate()) {
+                        AuthService().signIn(email.text, password.text);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (
+                                    BuildContext) => const PageBuilder()));
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       fixedSize: Size(400, 50),

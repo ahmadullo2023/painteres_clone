@@ -3,6 +3,9 @@ import 'package:painteres_clone/src/common/constants/app_colors.dart';
 import 'package:painteres_clone/src/pages/page_builder.dart';
 import 'package:painteres_clone/src/pages/sign_in_page.dart';
 
+import '../common/validation/validation.dart';
+import '../service/auth_service.dart';
+
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -13,7 +16,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final _formKey2 = GlobalKey<FormState>();
   TextEditingController email = TextEditingController();
-  TextEditingController pass = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +71,8 @@ class _SignUpState extends State<SignUp> {
             Padding(
               padding: const EdgeInsets.all(12),
               child: TextFormField(
+                controller: email,
+                validator: (value) => Validation().emailUp(value),
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
                     Icons.email_outlined,
@@ -85,6 +90,8 @@ class _SignUpState extends State<SignUp> {
             Padding(
               padding: const EdgeInsets.all(12),
               child: TextFormField(
+                controller: password,
+                validator: (value) => Validation().passwordUp(value),
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
                     Icons.lock,
@@ -111,6 +118,9 @@ class _SignUpState extends State<SignUp> {
                   BoxDecoration(borderRadius: BorderRadius.circular(40)),
                   child: ElevatedButton(
                     onPressed: () {
+                      if (_formKey2.currentState!.validate()) {
+                        AuthService().signUp(email.text, password.text);
+                      }
                       Navigator.push(
                           context,
                           MaterialPageRoute(
