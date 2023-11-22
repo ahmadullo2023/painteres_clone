@@ -42,6 +42,7 @@ class _PageBuilderState extends State<PageBuilder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.white,
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
