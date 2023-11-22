@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ProFunc extends ChangeNotifier {
+class Validation {
 
   String? nameUp(value) {
     if (value != null && !RegExp(r".{3,}").hasMatch(value)) {

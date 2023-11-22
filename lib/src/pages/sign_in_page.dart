@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:painteres_clone/src/common/constants/app_colors.dart';
 import 'package:painteres_clone/src/pages/page_builder.dart';
+import 'package:painteres_clone/src/pages/sign_up_page.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key, this.onTap}) : super(key: key);
@@ -13,7 +14,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final _formKey1 = GlobalKey<FormState>();
   TextEditingController email = TextEditingController();
-  TextEditingController pass = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,12 @@ class _SignInState extends State<SignIn> {
             Container(
               width: double.infinity,
               height: 200,
+              child: Center(
+                child: Image.asset(
+                  "assets/icons/logo.png",
+                  height: 100,
+                ),
+              ),
               decoration: const BoxDecoration(
                 color: Colors.black,
                 borderRadius: BorderRadius.only(
@@ -68,6 +75,8 @@ class _SignInState extends State<SignIn> {
             Padding(
               padding: const EdgeInsets.all(12),
               child: TextFormField(
+                controller: password,
+                validator: (value) => Validation().passwordIn(value),
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
                     Icons.lock,
@@ -114,6 +123,33 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
             ),
+                padding: EdgeInsets.all(12),
+                child: DecoratedBox(
+                  decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(40)),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey1.currentState!.validate()) {
+                        AuthService().signIn(email.text, password.text);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (
+                                    BuildContext) => const PageBuilder()));
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(400, 50),
+                      backgroundColor: AppColors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                    ),
+                    child: const Text(
+                      "SignIn",
+                    ),
+                  ),
+                )),
             TextButton(
               onPressed: widget.onTap,
               child: const Text(
