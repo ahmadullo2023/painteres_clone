@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:painteres_clone/src/common/constants/app_colors.dart';
-import 'package:painteres_clone/src/pages/page_builder.dart';
+
 
 
 import '../common/validation/validation.dart';
@@ -122,12 +122,6 @@ class _SignUpState extends State<SignUp> {
                       if (_formKey2.currentState!.validate()) {
                         AuthService().signUp(email.text, password.text);
                       }
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const PageBuilder(),
-                        ),
-                      );
                     },
                     style: ElevatedButton.styleFrom(
                       fixedSize: const Size(400, 50),
