@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:painteres_clone/src/common/constants/app_colors.dart';
 
 import 'package:painteres_clone/src/common/validation/validation.dart';
+import 'package:painteres_clone/src/pages/page_builder.dart';
 
 import '../service/auth_service.dart';
 
@@ -105,6 +106,9 @@ class _SignInState extends State<SignIn> {
                       if (_formKey1.currentState!.validate()) {
                         AuthService().signIn(email.text, password.text);
                       }
+                      Navigator.push(
+                          context,
+                      MaterialPageRoute(builder: (Builder) => PageBuilder()));
                     },
                     style: ElevatedButton.styleFrom(
                         fixedSize: const Size(400, 50),

@@ -30,7 +30,7 @@ class MyApplication extends StatelessWidget {
             Locale("en"),
             Locale("uz"),
           ],
-          home: const AuthGate()
+          home: AuthGate()
         );
       },
     );

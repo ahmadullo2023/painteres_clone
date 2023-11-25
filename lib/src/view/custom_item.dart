@@ -53,3 +53,31 @@ class CustomBottomItem extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+class ProfileItem extends StatelessWidget {
+  const ProfileItem({
+    super.key,
+    required this.titleT,
+    required this.trailingI,
+  });
+
+  final Widget trailingI;
+  final Widget titleT;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          title: titleT,
+          trailing: trailingI,
+        ),
+        const Divider(color: Colors.black),
+      ],
+    );
+  }
+}
