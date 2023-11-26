@@ -6,7 +6,6 @@ import 'package:painteres_clone/src/pages/page_builder.dart';
 
 import '../service/auth_service.dart';
 
-
 class SignIn extends StatefulWidget {
   const SignIn({Key? key, this.onTap}) : super(key: key);
   final void Function()? onTap;
@@ -97,31 +96,31 @@ class _SignInState extends State<SignIn> {
             ),
             const Spacer(),
             Padding(
-                padding: const EdgeInsets.all(12),
-                child: DecoratedBox(
-                  decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(40)),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey1.currentState!.validate()) {
-                        AuthService().signIn(email.text, password.text);
-                      }
-                      Navigator.push(
-                          context,
-                      MaterialPageRoute(builder: (Builder) => PageBuilder()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(400, 50),
-                        backgroundColor: AppColors.black,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40),
-                        ),
-                    ),
-                    child: const Text(
-                      "SignIn",
+              padding: const EdgeInsets.all(12),
+              child: DecoratedBox(
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(40)),
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_formKey1.currentState!.validate()) {
+                      AuthService().signIn(email.text, password.text);
+                    }
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (Builder) => PageBuilder()));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(400, 50),
+                    backgroundColor: AppColors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
                     ),
                   ),
-                )),
+                  child: const Text(
+                    "SignIn",
+                  ),
+                ),
+              ),
+            ),
             TextButton(
               onPressed: widget.onTap,
               child: const Text(

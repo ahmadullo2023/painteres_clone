@@ -19,6 +19,8 @@ dependencies:
     sdk: flutter
   flutter_native_splash: ^2.3.6
   dio: ^5.3.4
+  shimmer: ^3.0.0
+  cloud_firestore: ^4.13.2
 
 
 

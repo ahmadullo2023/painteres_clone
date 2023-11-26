@@ -62,20 +62,28 @@ class ProfileItem extends StatelessWidget {
   const ProfileItem({
     super.key,
     required this.titleT,
-    required this.trailingI,
+    required this.trailingI, this.onPressed,
   });
 
   final Widget trailingI;
   final Widget titleT;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         ListTile(
+          onTap: onPressed,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
+            )
+          ),
           title: titleT,
           trailing: trailingI,
         ),
+        const SizedBox(height: 10),
         const Divider(color: Colors.black),
       ],
     );

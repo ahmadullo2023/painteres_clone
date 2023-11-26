@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:painteres_clone/src/common/constants/app_colors.dart';
-
-
+import 'package:painteres_clone/src/service/firebase_service.dart';
 
 import '../common/validation/validation.dart';
 import '../service/auth_service.dart';
@@ -16,8 +15,26 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final _formKey2 = GlobalKey<FormState>();
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+
+  late final TextEditingController nameController;
+  late final TextEditingController emailController;
+  late final TextEditingController passwordController;
+
+  @override
+  void initState() {
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +72,7 @@ class _SignUpState extends State<SignUp> {
             Padding(
               padding: const EdgeInsets.all(12),
               child: TextFormField(
+                controller: nameController,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
                     Icons.person,
@@ -72,7 +90,7 @@ class _SignUpState extends State<SignUp> {
             Padding(
               padding: const EdgeInsets.all(12),
               child: TextFormField(
-                controller: email,
+                controller: emailController,
                 validator: (value) => Validation().emailUp(value),
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
@@ -91,7 +109,7 @@ class _SignUpState extends State<SignUp> {
             Padding(
               padding: const EdgeInsets.all(12),
               child: TextFormField(
-                controller: password,
+                controller: passwordController,
                 validator: (value) => Validation().passwordUp(value),
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
@@ -113,28 +131,35 @@ class _SignUpState extends State<SignUp> {
             ),
             const Spacer(),
             Padding(
-                padding: const EdgeInsets.all(12),
-                child: DecoratedBox(
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(40)),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey2.currentState!.validate()) {
-                        AuthService().signUp(email.text, password.text);
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(400, 50),
-                      backgroundColor: AppColors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                    ),
-                    child: const Text(
-                      "SignUp",
+              padding: const EdgeInsets.all(12),
+              child: DecoratedBox(
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(40)),
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_formKey2.currentState!.validate()) {
+                      AuthService().signUp(
+                          emailController.text, passwordController.text);
+                      FirebaseService().collectionService(
+                        nameController.text,
+                        emailController.text,
+                        passwordController.text,
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(400, 50),
+                    backgroundColor: AppColors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
                     ),
                   ),
-                )),
+                  child: const Text(
+                    "SignUp",
+                  ),
+                ),
+              ),
+            ),
             TextButton(
               onPressed: widget.onTap,
               child: const Text(

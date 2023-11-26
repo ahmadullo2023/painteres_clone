@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:painteres_clone/src/pages/details_page.dart';
 import 'package:painteres_clone/src/service/network_service.dart';
 
 import '../model/pinterest_model.dart';
@@ -42,6 +43,7 @@ class _HomeState extends State<HomePage> {
       }
     }
   }
+
   Future getAllImages() async {
     List<PinterestModel>? newImages = await HttpService().gelAllImages();
     if (newImages != null) {
@@ -72,9 +74,21 @@ class _HomeState extends State<HomePage> {
               itemCount: pinterestList!.length + 1,
               itemBuilder: (context, index) {
                 if (index < pinterestList!.length) {
-                  return Image(
-                    image: NetworkImage(pinterestList![index].urls.raw ?? ""),
-                    fit: BoxFit.cover,
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailsPage(
+                            images: pinterestList![index].urls.raw,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Image(
+                      image: NetworkImage(pinterestList![index].urls.raw),
+                      fit: BoxFit.cover,
+                    ),
                   );
                 } else {
                   if (isLoaded) {
