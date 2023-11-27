@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../common/constants/app_colors.dart';
 
 class CustomBottomItem extends StatelessWidget {
@@ -53,9 +52,6 @@ class CustomBottomItem extends StatelessWidget {
     );
   }
 }
-
-
-
 
 
 class ProfileItem extends StatelessWidget {

@@ -22,8 +22,6 @@ dependencies:
   shimmer: ^3.0.0
   cloud_firestore: ^4.13.2
 
-
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
