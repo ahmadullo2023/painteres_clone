@@ -136,11 +136,11 @@ class _SignUpState extends State<SignUp> {
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(40)),
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey2.currentState!.validate()) {
                       AuthService().signUp(
                           emailController.text, passwordController.text);
-                      FirebaseService().collectionService(
+                      await FirebaseService().collectionService(
                         nameController.text,
                         emailController.text,
                         passwordController.text,

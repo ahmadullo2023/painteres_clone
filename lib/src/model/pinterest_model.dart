@@ -221,7 +221,7 @@ class User {
         totalPromotedPhotos: json["total_promoted_photos"] ?? "",
         acceptedTos: json["accepted_tos"] ?? "",
         forHire: json["for_hire"] ?? "",
-        social: Social.fromJson(json["social"]),
+        social: Social.fromJson(json["social"] ?? ""),
       );
 
   Map<String, dynamic> toJson() => {
@@ -326,7 +326,7 @@ class Social {
   });
 
   factory Social.fromJson(Map<String, dynamic> json) => Social(
-        instagramUsername: json["instagram_username"],
+        instagramUsername: json["instagram_username"] ?? "",
         portfolioUrl: json["portfolio_url"] ?? "",
         twitterUsername: json["twitter_username"] ?? "",
         paypalEmail: json["paypal_email"] ?? "",

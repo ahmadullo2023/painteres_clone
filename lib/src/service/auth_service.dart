@@ -23,4 +23,8 @@ class AuthService {
       throw Exception("firebase sign up error $e");
     }
   }
+
+  void logOutButton() async {
+    _authService.signOut();
+  }
 }
