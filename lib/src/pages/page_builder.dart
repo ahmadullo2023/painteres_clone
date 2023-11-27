@@ -3,7 +3,6 @@ import 'package:painteres_clone/src/common/constants/app_icons.dart';
 import 'package:painteres_clone/src/pages/favorite_page.dart';
 import 'package:painteres_clone/src/pages/home_page.dart';
 import 'package:painteres_clone/src/pages/profile_page.dart';
-import '../common/constants/app_colors.dart';
 import '../view/custom_item.dart';
 
 
@@ -43,7 +42,6 @@ class _PageBuilderState extends State<PageBuilder> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColors.white,
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
         child: ClipRRect(
@@ -52,7 +50,7 @@ class _PageBuilderState extends State<PageBuilder> {
           ),
           child: BottomAppBar(
             color: Colors.black,
-            height: 70,
+            height: 65,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

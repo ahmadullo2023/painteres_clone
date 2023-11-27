@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -38,12 +37,14 @@ class _ProfileState extends State<ProfilePage> {
               padding: const EdgeInsets.only(left: 15, right: 15, top: 40),
               child: Column(
                 children: [
-                  const CircleAvatar(radius: 50),
+                  const CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage("assets/images/pinteres_logo.png"),
+                  ),
                   const SizedBox(height: 10),
                   Text(
                     firebaseAuth!.email.toString(),
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          color: Colors.black45,
                           fontWeight: FontWeight.w500,
                         ),
                   ),

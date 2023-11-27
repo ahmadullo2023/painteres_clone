@@ -80,7 +80,7 @@ class ProfileItem extends StatelessWidget {
           trailing: trailingI,
         ),
         const SizedBox(height: 10),
-        const Divider(color: Colors.black),
+        const Divider(thickness: 1),
       ],
     );
   }

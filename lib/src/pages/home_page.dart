@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:painteres_clone/src/pages/details_page.dart';
 import 'package:painteres_clone/src/service/network_service.dart';
+import 'package:painteres_clone/src/view/shimmer.dart';
 
 import '../model/pinterest_model.dart';
 
@@ -63,8 +64,7 @@ class _HomeState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pinterestList == null
-          ? const Center(child: CircularProgressIndicator())
+      body: pinterestList == null ? const CustomShimmer()
           : GridView.builder(
               controller: scrollController,
               physics: const BouncingScrollPhysics(),
@@ -82,7 +82,7 @@ class _HomeState extends State<HomePage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => DetailsPage(
-                            images: pinterestList![index].urls.raw,
+                            images: pinterestList![index].urls.raw
                           ),
                         ),
                       );
