@@ -23,8 +23,8 @@ class CustomBottomItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            height: 45,
-            width: 45,
+            height: 40,
+            width: 40,
             child: DecoratedBox(
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
@@ -33,7 +33,7 @@ class CustomBottomItem extends StatelessWidget {
               child: Center(
                 child: Image(
                   image: AssetImage(assetImages),
-                  height: 24,
+                  height: 18,
                 ),
               ),
             ),

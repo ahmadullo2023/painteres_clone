@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:painteres_clone/src/common/constants/app_colors.dart';
+import 'package:painteres_clone/src/cubit/details_cubit/details_state.dart';
 import 'package:painteres_clone/src/pages/home_page.dart';
 import 'package:painteres_clone/src/view/outline_button.dart';
-import 'package:share_plus/share_plus.dart';
-import '../model/pinterest_model.dart';
-import '../service/network_service.dart';
 
 class DetailsPage extends StatefulWidget {
-  const DetailsPage({Key? key, required this.images}) : super(key: key);
+  const DetailsPage({super.key, required this.images});
   final String images;
 
   @override
@@ -15,65 +14,29 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  List<PinterestModel>? pinterestList;
-  late final ScrollController scrollController;
-  bool isLoaded = false;
-  int count = 1;
-
-  @override
-  void initState() {
-    scrollController = ScrollController();
-    scrollController.addListener(_scrollListener);
-    super.initState();
-    getAllImages();
-  }
-
-  @override
-  void dispose() {
-    scrollController.removeListener(_scrollListener);
-    scrollController.dispose();
-    super.dispose();
-  }
-
-  void _scrollListener() {
-    if (scrollController.position.pixels ==
-        scrollController.position.maxScrollExtent) {
-      if (!isLoaded) {
-        setState(() {
-          isLoaded = true;
-        });
-        getAllImages();
-      }
-    }
-  }
-
-  Future getAllImages() async {
-    List<PinterestModel>? newImages = await HttpService().gelAllImages();
-    if (newImages != null) {
-      if (pinterestList == null) {
-        pinterestList = newImages;
-      } else {
-        pinterestList!.addAll(newImages);
-      }
-      setState(() {
-        isLoaded = false;
-      });
-    }
-  }
-
   bool favoriteColor = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bc,
-      body: pinterestList == null
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : SafeArea(
-              child: ListView.builder(
-                itemCount: pinterestList!.length,
+      body: SafeArea(
+        child: BlocConsumer<DetailsCubit, DetailsCubitState>(
+          listener: (context, state) => {},
+          builder: (context, state) {
+            if (state is DetailsLoadingState) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            if (state is DetailsErrorState) {
+              return const Center(
+                child: Text("errors state details page"),
+              );
+            } else if (state is DetailsSuccessState) {
+              return ListView.builder(
+                itemCount: state.pinterestList.length,
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
                   return Column(
@@ -87,9 +50,11 @@ class _DetailsPageState extends State<DetailsPage> {
                                   padding: const EdgeInsets.all(0),
                                   child: GestureDetector(
                                     onDoubleTap: () {
-                                      setState(() {
-                                        favoriteColor = !favoriteColor;
-                                      });
+                                      setState(
+                                        () {
+                                          favoriteColor = !favoriteColor;
+                                        },
+                                      );
                                     },
                                     child: Container(
                                       height: 500,
@@ -151,7 +116,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   padding:
                                       const EdgeInsets.only(left: 15, top: 10),
                                   child: Text(
-                                    pinterestList![index].user.name,
+                                    state.pinterestList[index].user.name,
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium!
@@ -165,7 +130,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   padding: const EdgeInsets.only(
                                       left: 15, top: 10, right: 10),
                                   child: Text(
-                                    pinterestList![index].description,
+                                    state.pinterestList[index].description,
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium!
@@ -177,7 +142,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 20),
-                                 Row(
+                                Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
@@ -185,9 +150,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                       text: "Download",
                                     ),
                                     CustomOutlineButton(
-                                      onPressed: () async {
-                                        await Share.share('check out my website https://example.com', subject: 'Look what I made!');
-                                      },
+                                      onPressed: () async {},
                                       text: "Shared",
                                     ),
                                   ],
@@ -201,55 +164,60 @@ class _DetailsPageState extends State<DetailsPage> {
                             )
                           : const SizedBox(),
                       const SizedBox(height: 15),
-                      pinterestList!.isEmpty
-                          ? const Center(
-                              child: CircularProgressIndicator(),
-                            )
-                          : SizedBox(
-                              height: 600,
-                              child: GridView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: pinterestList!.length,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 10,
-                                        mainAxisSpacing: 10),
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => DetailsPage(
-                                            images:
-                                                pinterestList![index].urls.raw,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: SizedBox(
-                                      height: 150,
-                                      child: DecoratedBox(
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                              pinterestList![index].urls.raw,
-                                            ),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
+                      SizedBox(
+                        height: 600,
+                        child: GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: state.pinterestList.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DetailsPage(
+                                      images:
+                                          state.pinterestList[index].urls.raw,
                                     ),
-                                  );
-                                },
+                                  ),
+                                  (route) => false,
+                                );
+                              },
+                              child: SizedBox(
+                                height: 150,
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                        state.pinterestList[index].urls.thumb,
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            )
+                            );
+                          },
+                        ),
+                      )
                     ],
                   );
                 },
-              ),
-            ),
+              );
+            } else {
+              return const Center(
+                child: Text("error unknown details state"),
+              );
+            }
+          },
+        ),
+      ),
     );
   }
 }
